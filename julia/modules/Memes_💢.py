@@ -776,6 +776,24 @@ async def _(event):
     await event.reply(file=InputMediaDice("🎰"))
 
 
+@register(pattern="^/bowl$")
+async def _(event):
+    if event.fwd_from:
+        return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch["id"]
+        userss = ch["user"]
+    if event.is_group:
+        if await is_register_admin(event.input_chat, event.message.sender_id):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
+    await event.reply(file=InputMediaDice("🎳"))
+
+
 @register(pattern="^/dart$")
 async def _(event):
     if event.fwd_from:
@@ -2153,6 +2171,7 @@ __help__ = """
  - /dice: Roll A dice
  - /dart: Throw a dart and try your luck
  - /basketball: Try your luck if you can enter the ball in the ring
+ - /bowl: Try your luck to down them all
  - /type <text>: Make the bot type something for you in a professional way
  - /carbon <text>: Beautifies your text and enwraps inside a terminal image [ENGLISH ONLY]
  - /sticklet <text>: Turn a text into a sticker
